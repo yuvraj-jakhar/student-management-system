@@ -217,7 +217,7 @@ export default function Attendance() {
     link.setAttribute("href", encodedUri);
     link.setAttribute(
       "download",
-      `Apex_University_Attendance_Report_${new Date().toISOString().split("T")[0]}.csv`
+      `RIET_Jaipur_Attendance_Report_${new Date().toISOString().split("T")[0]}.csv`
     );
     document.body.appendChild(link);
     link.click();

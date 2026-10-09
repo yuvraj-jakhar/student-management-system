@@ -189,11 +189,11 @@ export default function Events() {
               Events & Campus Activities
             </h2>
             <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700">
-              Campus Life
+              RIET Jaipur
             </span>
           </div>
           <p className="text-xs text-slate-500 mt-0.5">
-            College festivals, technical hackathons, guest lectures, sports tournaments, and recruitment drives
+            Rajasthan Institute of Engineering & Technology • Festivals, hackathons, seminars, sports & placement drives
           </p>
         </div>
 

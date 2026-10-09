@@ -334,8 +334,8 @@ async def seed_all():
             "created_at": datetime.utcnow() - timedelta(hours=6)
         },
         {
-            "title": "Annual National Hackathon 'ApexHack 2026' Registrations Open",
-            "content": "Apex University is proud to announce 'ApexHack 2026', a 36-hour national flagship hackathon on Generative AI, Web3, and Smart Campus Solutions with prize pool of ₹5,00,000. Registration is open for teams of 3-4 members across all B.Tech branches. Winners will also receive fast-tracked summer internship interviews with sponsor tech companies.",
+            "title": "Annual National Hackathon 'RIETHack 2026' Registrations Open",
+            "content": "Rajasthan Institute of Engineering & Technology (RIET), Jaipur is proud to announce 'RIETHack 2026', a 36-hour national flagship hackathon on Generative AI, Web3, and Smart Campus Solutions with prize pool of ₹5,00,000. Registration is open for teams of 3-4 members across all B.Tech branches. Winners will also receive fast-tracked summer internship interviews with sponsor tech companies.",
             "category": "Event",
             "priority": "Normal",
             "target_audience": "All",

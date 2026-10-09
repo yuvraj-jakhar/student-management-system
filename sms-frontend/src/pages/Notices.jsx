@@ -189,10 +189,10 @@ export default function Notices() {
             </div>
             <div>
               <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">
-                University Notice Board
+                RIET Campus Notice Board
               </h2>
               <p className="text-xs text-slate-500 mt-0.5">
-                Official circulars, examination schedules, placement notices, and academic directives.
+                Rajasthan Institute of Engineering & Technology, Jaipur • Circulars, exams, placement & directives
               </p>
             </div>
           </div>

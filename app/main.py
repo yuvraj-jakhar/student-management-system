@@ -19,8 +19,8 @@ async def lifespan(app: FastAPI):
 # ==========================================
 
 app = FastAPI(
-    title="College Enterprise ERP API",
-    description="Comprehensive Multi-Role College Enterprise ERP System",
+    title="Rajasthan Institute of Engineering & Technology, Jaipur - ERP API",
+    description="Enterprise College ERP for Rajasthan Institute of Engineering & Technology (RIET), Jaipur",
     version="2.0.0",
     lifespan=lifespan
 )
@@ -71,7 +71,7 @@ app.mount(
 @app.get("/")
 async def home():
     return {
-        "message": "Student Management System API"
+        "message": "Rajasthan Institute of Engineering & Technology (RIET Jaipur) ERP API"
     }
 
 

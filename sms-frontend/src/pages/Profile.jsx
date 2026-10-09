@@ -185,6 +185,9 @@ export default function Profile() {
           <p className="text-xs text-slate-500 flex items-center justify-center sm:justify-start gap-1">
             <Mail size={13} className="text-slate-400" /> {profile?.email}
           </p>
+          <p className="text-xs text-indigo-700 font-semibold flex items-center justify-center sm:justify-start gap-1">
+            <Building2 size={13} className="text-indigo-600" /> Rajasthan Institute of Engineering & Technology, Jaipur
+          </p>
           <p className="text-xs text-slate-400 font-mono">
             Institution ID: #{profile?._id || localUser?.sub}
           </p>

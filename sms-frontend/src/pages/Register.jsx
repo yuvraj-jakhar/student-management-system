@@ -81,11 +81,11 @@ export default function Register() {
           <div className="inline-flex bg-white/10 p-3 rounded-2xl backdrop-blur-xs border border-white/20 mb-2">
             <Building2 size={28} />
           </div>
-          <h1 className="text-xl font-extrabold tracking-tight">
-            Apex University Enrollment
+          <h1 className="text-lg sm:text-xl font-extrabold tracking-tight leading-snug">
+            Rajasthan Institute of Engineering & Technology
           </h1>
-          <p className="text-xs text-indigo-100 mt-0.5">
-            Create a new student or faculty academic profile
+          <p className="text-xs text-indigo-100 mt-1 font-semibold tracking-wide">
+            RIET Jaipur • Student & Faculty Portal
           </p>
         </div>
 

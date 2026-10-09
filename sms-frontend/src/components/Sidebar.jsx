@@ -101,10 +101,10 @@ export default function Sidebar({ isOpen, onClose }) {
               </div>
               <div className="leading-tight">
                 <span className="font-bold text-sm tracking-tight text-white block">
-                  CampusPortal
+                  RIET Jaipur
                 </span>
-                <span className="text-[11px] text-slate-400 font-medium">
-                  Student Management
+                <span className="text-[10px] text-slate-400 font-medium truncate block max-w-[140px]" title="Rajasthan Institute of Engineering & Technology">
+                  Rajasthan Inst. of Engg & Tech
                 </span>
               </div>
             </div>

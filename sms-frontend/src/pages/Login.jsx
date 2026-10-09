@@ -86,16 +86,16 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-900 bg-radial from-slate-900 via-indigo-950 to-slate-950 p-4 sm:p-6">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100">
-        {/* University Header Banner */}
+        {/* Institution Header Banner */}
         <div className="bg-gradient-to-r from-indigo-700 via-indigo-600 to-blue-600 p-6 text-white text-center">
           <div className="inline-flex bg-white/10 p-3 rounded-2xl backdrop-blur-xs border border-white/20 mb-3 shadow-inner">
             <Building2 size={32} className="text-white" />
           </div>
-          <h1 className="text-xl font-extrabold tracking-tight">
-            Apex University
+          <h1 className="text-lg sm:text-xl font-extrabold tracking-tight leading-snug">
+            Rajasthan Institute of Engineering & Technology
           </h1>
-          <p className="text-xs text-indigo-100 mt-0.5 font-medium">
-            Student Information & Management Portal
+          <p className="text-xs text-indigo-100 mt-1 font-semibold tracking-wide">
+            RIET Jaipur • Enterprise Campus ERP
           </p>
         </div>
 

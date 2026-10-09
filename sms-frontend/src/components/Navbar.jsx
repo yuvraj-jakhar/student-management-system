@@ -42,13 +42,13 @@ export default function Navbar({ onToggleSidebar }) {
     "/marks": { title: "Academic Performance", sub: "Grades & Evaluation" },
     "/library": { title: "Central Library", sub: "Catalogue & Circulation" },
     "/events": { title: "Events & Campus Activities", sub: "Festivals & Seminars" },
-    "/notices": { title: "University Notice Board", sub: "Official Circulars & Announcements" },
+    "/notices": { title: "RIET Notice Board", sub: "Official Circulars & Announcements" },
     "/profile": { title: "My Profile", sub: "Account & Credentials" },
   };
 
   const currentMeta = pageMetaMap[location.pathname] || {
-    title: "College Enterprise ERP",
-    sub: "Portal",
+    title: "RIET Jaipur ERP",
+    sub: "Rajasthan Institute of Engineering & Technology",
   };
 
   const roles = Array.isArray(user?.role) ? user.role : [user?.role || "user"];

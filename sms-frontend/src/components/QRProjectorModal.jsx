@@ -108,14 +108,14 @@ export default function QRProjectorModal({
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="text-sm font-extrabold tracking-tight uppercase">
-                  Apex University Smartboard Projector
+                  RIET Jaipur Smartboard Projector
                 </h3>
                 <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
                   <Sparkles size={10} /> Live Session
                 </span>
               </div>
               <p className="text-[11px] text-slate-400">
-                Official Classroom Digital Attendance Broadcaster
+                Rajasthan Institute of Engineering & Technology • Classroom Attendance
               </p>
             </div>
           </div>
@@ -250,7 +250,7 @@ export default function QRProjectorModal({
         {/* Projector Footer Actions */}
         <div className="px-6 py-4 bg-slate-950 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
           <div className="text-[11px] text-slate-400">
-            Students scan using <strong className="text-white">Apex Portal Camera</strong> or paste the session token.
+            Students scan using <strong className="text-white">RIET Portal Camera</strong> or paste the session token.
           </div>
 
           <div className="flex items-center gap-2">

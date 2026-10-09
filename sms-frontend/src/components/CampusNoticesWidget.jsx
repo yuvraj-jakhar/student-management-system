@@ -46,10 +46,10 @@ export default function CampusNoticesWidget() {
           </div>
           <div>
             <h3 className="text-sm font-bold text-slate-900 tracking-tight">
-              University Circulars & Notices
+              RIET Circulars & Notices
             </h3>
             <p className="text-[11px] text-slate-400">
-              Official campus broadcasts and deadlines
+              Rajasthan Institute of Engineering & Technology broadcasts
             </p>
           </div>
         </div>

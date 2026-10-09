@@ -282,14 +282,14 @@ export default function Library() {
         <div>
           <div className="flex items-center gap-2">
             <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">
-              Central University Library
+              RIET Central Library
             </h2>
             <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700">
-              ERP Module
+              RIET Jaipur
             </span>
           </div>
           <p className="text-xs text-slate-500 mt-0.5">
-            Book catalogue, circulation checkout, return tracking, and overdue fine governance
+            Rajasthan Institute of Engineering & Technology • Book catalogue, circulation, and circulation governance
           </p>
         </div>
 
