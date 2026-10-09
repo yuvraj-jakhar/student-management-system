@@ -12,6 +12,8 @@ import {
   ShieldCheck,
   Building2,
   Bell,
+  BookMarked,
+  Calendar,
 } from "lucide-react";
 import { getCurrentUser, logoutUser } from "../services/auth";
 
@@ -50,6 +52,16 @@ export default function Sidebar({ isOpen, onClose }) {
       to: "/marks",
       icon: Award,
       label: "Marks",
+    },
+    {
+      to: "/library",
+      icon: BookMarked,
+      label: "Central Library",
+    },
+    {
+      to: "/events",
+      icon: Calendar,
+      label: "Events & Campus",
     },
     {
       to: "/notices",

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import {
   Menu,
@@ -12,8 +12,15 @@ import {
   BookOpen,
   CheckCircle2,
   Clock,
+  CheckCheck,
 } from "lucide-react";
 import { getCurrentUser, logoutUser } from "../services/auth";
+import {
+  getMyNotifications,
+  getUnreadNotificationCount,
+  markNotificationRead,
+  markAllNotificationsRead,
+} from "../services/notifications";
 
 export default function Navbar({ onToggleSidebar }) {
   const location = useLocation();
@@ -22,6 +29,8 @@ export default function Navbar({ onToggleSidebar }) {
 
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [notificationsList, setNotificationsList] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0);
 
   // Derive page title & breadcrumb based on URL
   const pageMetaMap = {
@@ -31,41 +40,66 @@ export default function Navbar({ onToggleSidebar }) {
     "/courses": { title: "Course Catalog", sub: "Classes & Curriculum" },
     "/attendance": { title: "Attendance", sub: "Live QR & Verification" },
     "/marks": { title: "Academic Performance", sub: "Grades & Evaluation" },
+    "/library": { title: "Central Library", sub: "Catalogue & Circulation" },
+    "/events": { title: "Events & Campus Activities", sub: "Festivals & Seminars" },
     "/notices": { title: "University Notice Board", sub: "Official Circulars & Announcements" },
     "/profile": { title: "My Profile", sub: "Account & Credentials" },
   };
 
   const currentMeta = pageMetaMap[location.pathname] || {
-    title: "Student Management",
+    title: "College Enterprise ERP",
     sub: "Portal",
   };
 
   const roles = Array.isArray(user?.role) ? user.role : [user?.role || "user"];
   const primaryRole = roles[0] || "user";
 
-  const notifications = [
-    {
-      id: 1,
-      title: "Attendance Recorded",
-      desc: "Cloud Architecture session marked successfully",
-      time: "10 mins ago",
-      type: "success",
-    },
-    {
-      id: 2,
-      title: "Academic Notice",
-      desc: "Midterm evaluations have been published",
-      time: "2 hours ago",
-      type: "info",
-    },
-    {
-      id: 3,
-      title: "System Status",
-      desc: "MongoDB cluster synchronization complete",
-      time: "1 day ago",
-      type: "system",
-    },
-  ];
+  const fetchNotifs = async () => {
+    try {
+      const [list, countRes] = await Promise.all([
+        getMyNotifications(15),
+        getUnreadNotificationCount(),
+      ]);
+      setNotificationsList(list || []);
+      setUnreadCount(countRes.unread_count || 0);
+    } catch {
+      // Graceful fallback if backend unmounted or token expired
+    }
+  };
+
+  useEffect(() => {
+    fetchNotifs();
+    const interval = setInterval(fetchNotifs, 30000); // 30s live poll
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleMarkAllRead = async () => {
+    try {
+      await markAllNotificationsRead();
+      setUnreadCount(0);
+      setNotificationsList((prev) => prev.map((n) => ({ ...n, is_read: true })));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleReadItem = async (notif) => {
+    if (!notif.is_read) {
+      try {
+        await markNotificationRead(notif._id);
+        setUnreadCount((c) => Math.max(0, c - 1));
+        setNotificationsList((prev) =>
+          prev.map((n) => (n._id === notif._id ? { ...n, is_read: true } : n))
+        );
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    if (notif.link) {
+      setNotificationsOpen(false);
+      navigate(notif.link);
+    }
+  };
 
   return (
     <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200/80 px-4 sm:px-6 lg:px-8 py-3.5">
@@ -101,7 +135,7 @@ export default function Navbar({ onToggleSidebar }) {
             />
             <input
               type="text"
-              placeholder="Quick search records..."
+              placeholder="Quick search ERP..."
               className="w-full pl-9 pr-12 py-1.5 bg-slate-100/80 hover:bg-slate-100 focus:bg-white text-xs border border-transparent focus:border-indigo-500 rounded-xl outline-hidden transition text-slate-800 placeholder-slate-400"
             />
             <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] font-mono text-slate-400 border border-slate-200 rounded px-1.5 py-0.5 bg-white">
@@ -123,7 +157,11 @@ export default function Navbar({ onToggleSidebar }) {
               title="Notifications"
             >
               <Bell size={18} />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-indigo-600 ring-2 ring-white" />
+              {unreadCount > 0 && (
+                <span className="absolute top-1 right-1 min-w-4 h-4 px-1 rounded-full bg-rose-600 text-white text-[9px] font-bold flex items-center justify-center ring-2 ring-white">
+                  {unreadCount > 9 ? "9+" : unreadCount}
+                </span>
+              )}
             </button>
 
             {notificationsOpen && (
@@ -132,41 +170,66 @@ export default function Navbar({ onToggleSidebar }) {
                   className="fixed inset-0 z-40"
                   onClick={() => setNotificationsOpen(false)}
                 />
-                <div className="absolute right-0 mt-2 w-80 bg-white rounded-2xl shadow-xl border border-slate-100 p-3 z-50 animate-fade-in">
+                <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-xl border border-slate-100 p-3 z-50 animate-fade-in max-h-[460px] flex flex-col">
                   <div className="flex items-center justify-between px-2 pb-2 mb-2 border-b border-slate-100">
-                    <span className="text-xs font-bold text-slate-800">
-                      Notifications
-                    </span>
-                    <span className="text-[10px] font-semibold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full">
-                      3 New
-                    </span>
-                  </div>
-
-                  <div className="space-y-1.5">
-                    {notifications.map((n) => (
-                      <div
-                        key={n.id}
-                        className="p-2.5 rounded-xl hover:bg-slate-50 transition cursor-pointer text-xs"
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold text-slate-800">
+                        Campus Notifications
+                      </span>
+                      {unreadCount > 0 && (
+                        <span className="text-[10px] font-semibold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-full">
+                          {unreadCount} Unread
+                        </span>
+                      )}
+                    </div>
+                    {unreadCount > 0 && (
+                      <button
+                        onClick={handleMarkAllRead}
+                        className="text-[10px] font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-1"
                       >
-                        <div className="flex items-start justify-between">
-                          <p className="font-bold text-slate-800">{n.title}</p>
-                          <span className="text-[10px] text-slate-400">
-                            {n.time}
-                          </span>
-                        </div>
-                        <p className="text-[11px] text-slate-500 mt-0.5 leading-snug">
-                          {n.desc}
-                        </p>
-                      </div>
-                    ))}
+                        <CheckCheck size={12} /> Mark all read
+                      </button>
+                    )}
                   </div>
 
-                  <div className="pt-2 mt-1 border-t border-slate-100 flex items-center justify-between text-[11px] px-1">
+                  <div className="overflow-y-auto space-y-1.5 flex-1 pr-1">
+                    {notificationsList.length === 0 ? (
+                      <div className="text-center py-8 text-slate-400 text-xs">
+                        No notifications yet
+                      </div>
+                    ) : (
+                      notificationsList.map((n) => (
+                        <div
+                          key={n._id}
+                          onClick={() => handleReadItem(n)}
+                          className={`p-2.5 rounded-xl transition cursor-pointer text-xs border ${
+                            !n.is_read
+                              ? "bg-indigo-50/50 border-indigo-100 hover:bg-indigo-50"
+                              : "bg-white border-transparent hover:bg-slate-50"
+                          }`}
+                        >
+                          <div className="flex items-start justify-between gap-2">
+                            <p className="font-bold text-slate-800 leading-snug">
+                              {n.title}
+                            </p>
+                            <span className="text-[9px] font-mono text-slate-400 shrink-0">
+                              {n.created_at ? new Date(n.created_at).toLocaleDateString() : ""}
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-slate-500 mt-0.5 leading-snug">
+                            {n.message}
+                          </p>
+                        </div>
+                      ))
+                    )}
+                  </div>
+
+                  <div className="pt-2 mt-2 border-t border-slate-100 flex items-center justify-between text-[11px] px-1">
                     <button
                       onClick={() => setNotificationsOpen(false)}
                       className="font-medium text-slate-500 hover:text-slate-800"
                     >
-                      Clear
+                      Close
                     </button>
                     <Link
                       to="/notices"

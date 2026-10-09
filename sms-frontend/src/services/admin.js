@@ -10,10 +10,22 @@ export const getAllUsers = async () => {
   return response.data;
 };
 
-export const searchUsers = async (page = 1, limit = 10, search = "") => {
-  const response = await api.get("/admin/users/search", {
-    params: { page, limit, search },
-  });
+export const searchUsers = async (
+  page = 1,
+  limit = 10,
+  search = "",
+  role = null,
+  department = null,
+  semester = null,
+  isActive = null
+) => {
+  const params = { page, limit, search };
+  if (role) params.role = role;
+  if (department) params.department = department;
+  if (semester) params.semester = semester;
+  if (isActive !== null && isActive !== undefined) params.is_active = isActive;
+
+  const response = await api.get("/admin/users/search", { params });
   return response.data;
 };
 
@@ -27,8 +39,38 @@ export const updateUser = async (userId, userData) => {
   return response.data;
 };
 
+export const toggleUserStatus = async (userId, isActive) => {
+  const response = await api.put(`/admin/users/${userId}/status`, { is_active: isActive });
+  return response.data;
+};
+
 export const deleteUser = async (userId) => {
   const response = await api.delete(`/admin/users/${userId}`);
+  return response.data;
+};
+
+export const downloadImportTemplate = async (format = "csv") => {
+  const response = await api.get(`/admin/students/import-template?format=${format}`, {
+    responseType: "blob",
+  });
+  return response.data;
+};
+
+export const previewStudentImport = async (file) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  const response = await api.post("/admin/students/import-preview", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response.data;
+};
+
+export const commitStudentImport = async (file, skipInvalid = true) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  const response = await api.post(`/admin/students/import?skip_invalid=${skipInvalid}`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
   return response.data;
 };
 
@@ -54,6 +96,20 @@ export const assignTeacherToCourse = async (courseId, teacherId) => {
 
 export const enrollStudentInCourse = async (courseId, studentId) => {
   const response = await api.put(`/admin/courses/${courseId}/enroll/${studentId}`);
+  return response.data;
+};
+
+export const getCourseProposals = async (status = null) => {
+  const params = status ? { status } : {};
+  const response = await api.get("/admin/courses/proposals", { params });
+  return response.data;
+};
+
+export const reviewCourseProposal = async (proposalId, action, remarks = "") => {
+  const response = await api.put(`/admin/courses/proposals/${proposalId}/review`, {
+    action,
+    remarks,
+  });
   return response.data;
 };
 

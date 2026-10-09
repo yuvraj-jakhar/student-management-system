@@ -12,9 +12,21 @@ from app.auth import RoleChecker
 from app.database import (
     attendance_collection,
     courses_collection,
-    marks_collection
+    marks_collection,
+    course_proposals_collection
 )
 from app.models import AttendanceRecord
+from pydantic import BaseModel, Field
+from typing import Optional
+
+class CourseProposalCreate(BaseModel):
+    name: str
+    code: str
+    department: str
+    semester: int = Field(default=1, ge=1, le=8)
+    credits: int = Field(default=4, ge=1, le=10)
+    description: Optional[str] = None
+    syllabus: Optional[str] = None
 
 router = APIRouter(
     prefix="/teacher",
@@ -39,7 +51,7 @@ async def view_courses(
     else:
         courses = await courses_collection.find(
             {
-                "teacher_id": current_user["_id"]
+                "teacher_id": str(current_user["_id"])
             }
         ).to_list(100)
 
@@ -47,6 +59,64 @@ async def view_courses(
         course["_id"] = str(course["_id"])
 
     return courses
+
+
+# =====================================
+# Propose Course (Faculty Proposal)
+# =====================================
+
+@router.post("/courses/propose")
+async def propose_course(
+    proposal: CourseProposalCreate,
+    current_user=Depends(RoleChecker(["teacher", "admin", "can_create_student"]))
+):
+    code_upper = proposal.code.strip().upper()
+    existing_course = await courses_collection.find_one({"code": code_upper})
+    if existing_course:
+        raise HTTPException(status_code=400, detail=f"Course code '{code_upper}' already active")
+
+    doc = {
+        "name": proposal.name.strip(),
+        "code": code_upper,
+        "department": proposal.department.strip(),
+        "semester": proposal.semester,
+        "credits": proposal.credits,
+        "description": proposal.description or "",
+        "syllabus": proposal.syllabus or "",
+        "teacher_id": str(current_user["_id"]),
+        "teacher_name": f"{current_user.get('first_name', '')} {current_user.get('last_name', '')}".strip() or current_user.get("email"),
+        "status": "pending",
+        "created_at": datetime.utcnow()
+    }
+
+    res = await course_proposals_collection.insert_one(doc)
+    return {
+        "message": "Course proposal submitted for administrative approval",
+        "id": str(res.inserted_id)
+    }
+
+
+# =====================================
+# View Course Proposals
+# =====================================
+
+@router.get("/courses/proposals")
+async def view_my_proposals(
+    current_user=Depends(RoleChecker(["teacher", "admin", "can_create_student"]))
+):
+    user_roles = current_user.get("role", [])
+    if isinstance(user_roles, str):
+        user_roles = [user_roles]
+
+    query = {}
+    if "admin" not in user_roles and "can_create_student" not in user_roles:
+        query["teacher_id"] = str(current_user["_id"])
+
+    proposals = await course_proposals_collection.find(query).sort("created_at", -1).to_list(100)
+    for p in proposals:
+        p["_id"] = str(p["_id"])
+
+    return proposals
 
 
 # =====================================

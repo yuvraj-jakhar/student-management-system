@@ -16,6 +16,8 @@ import Attendance from "./pages/Attendance";
 import Marks from "./pages/Marks";
 import Profile from "./pages/Profile";
 import Notices from "./pages/Notices";
+import Library from "./pages/Library";
+import Events from "./pages/Events";
 
 function App() {
   return (
@@ -66,6 +68,8 @@ function App() {
           <Route path="/courses" element={<Courses />} />
           <Route path="/attendance" element={<Attendance />} />
           <Route path="/marks" element={<Marks />} />
+          <Route path="/library" element={<Library />} />
+          <Route path="/events" element={<Events />} />
           <Route path="/notices" element={<Notices />} />
           <Route path="/profile" element={<Profile />} />
         </Route>

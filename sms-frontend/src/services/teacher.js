@@ -36,3 +36,13 @@ export const generateQRAttendance = async (courseId) => {
   });
   return response.data;
 };
+
+export const proposeCourse = async (proposalData) => {
+  const response = await api.post("/teacher/courses/propose", proposalData);
+  return response.data;
+};
+
+export const getMyProposals = async () => {
+  const response = await api.get("/teacher/courses/proposals");
+  return response.data;
+};
