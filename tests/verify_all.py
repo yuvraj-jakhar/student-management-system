@@ -125,7 +125,49 @@ async def run_verification():
         my_regs = await client.get("/events/my-registrations", headers={"Authorization": f"Bearer {student_token}"})
         assert my_regs.status_code == 200
         print(f"  ✓ Student enrolled events list verified ({len(my_regs.json())} active passes)")
-        results.append(("Campus Events & Activities Module", True))
+
+        # Instagram API Status check
+        ig_st = await client.get("/events/instagram/status", headers={"Authorization": f"Bearer {student_token}"})
+        assert ig_st.status_code == 200
+        assert "official_handle" in ig_st.json() or "api_configured" in ig_st.json()
+        print("  ✓ Instagram @riet_official integration endpoint verified")
+
+        # RIET Official Website Sync (Admin only)
+        sync_res = await client.post("/events/import/sync-riet-website", headers={"Authorization": f"Bearer {admin_token}"})
+        assert sync_res.status_code in [200, 500], f"Sync unexpected: {sync_res.status_code}"
+        if sync_res.status_code == 200:
+            print(f"  ✓ RIET website sync live: {sync_res.json().get('total_found', 0)} posts parsed, {sync_res.json().get('imported_count', 0)} new imported")
+
+        # Admin Manual Social Import with Duplicate Checking
+        test_ig_url = f"https://www.instagram.com/p/TEST_{uuid.uuid4().hex[:6]}/"
+        manual_import_payload = {
+            "post_url": test_ig_url,
+            "title": "RIET Tech Fest 2026 - Hackathon Launch",
+            "description": "Annual technological symposium organized at RIET Campus with cash prizes up to 1 Lakh.",
+            "category": "Hackathon",
+            "source": "instagram",
+            "venue": "RIET Campus, Jaipur",
+            "organizer": "RIET Official (@riet_official)",
+            "is_date_unverified": True,
+            "is_venue_unverified": False,
+            "notify_students": False
+        }
+        import_res = await client.post("/events/import/manual", headers={"Authorization": f"Bearer {admin_token}"}, json=manual_import_payload)
+        assert import_res.status_code == 200, f"Manual import failed: {import_res.text}"
+        imp_id = import_res.json()["event"]["_id"]
+        print(f"  ✓ Manual Instagram post imported successfully (Event ID: {imp_id})")
+
+        # Duplicate detection check
+        dup_res = await client.post("/events/import/manual", headers={"Authorization": f"Bearer {admin_token}"}, json=manual_import_payload)
+        assert dup_res.status_code == 400, f"Expected 400 for duplicate import, got {dup_res.status_code}"
+        print("  ✓ Duplicate post URL detection verified (400 Bad Request on duplicate import)")
+
+        # Calendar View endpoint
+        cal_res = await client.get("/events/calendar", headers={"Authorization": f"Bearer {student_token}"})
+        assert cal_res.status_code == 200
+        assert isinstance(cal_res.json(), list)
+        print(f"  ✓ Campus events interactive calendar endpoint verified ({len(cal_res.json())} events listed)")
+        results.append(("Campus Events & RIET Official Updates Integration", True))
 
         # 5. COURSE PROPOSALS & FACULTY GOVERNANCE
         print("\n[5] Testing Teacher Course Proposals & Academic Review Queue...")

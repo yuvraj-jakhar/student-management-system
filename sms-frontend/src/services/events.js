@@ -1,9 +1,11 @@
 import api from "./api";
 
-export const getEvents = async (search = "", category = "", statusFilter = "", page = 1, limit = 50) => {
+export const getEvents = async (search = "", category = "", statusFilter = "", sourceFilter = "", timeFilter = "", page = 1, limit = 60) => {
   const params = { search, page, limit };
   if (category) params.category = category;
   if (statusFilter) params.status_filter = statusFilter;
+  if (sourceFilter) params.source_filter = sourceFilter;
+  if (timeFilter) params.time_filter = timeFilter;
   const response = await api.get("/events", { params });
   return response.data;
 };
@@ -47,3 +49,37 @@ export const getMyEventRegistrations = async () => {
   const response = await api.get("/events/my-registrations");
   return response.data;
 };
+
+export const syncRietWebsiteEvents = async () => {
+  const response = await api.post("/events/import/sync-riet-website");
+  return response.data;
+};
+
+export const importManualEvent = async (data) => {
+  const response = await api.post("/events/import/manual", data);
+  return response.data;
+};
+
+export const getPendingReviewEvents = async () => {
+  const response = await api.get("/events/admin/pending-review");
+  return response.data;
+};
+
+export const reviewEventStatus = async (eventId, data) => {
+  const response = await api.put(`/events/${eventId}/review`, data);
+  return response.data;
+};
+
+export const getInstagramStatus = async () => {
+  const response = await api.get("/events/instagram/status");
+  return response.data;
+};
+
+export const getCalendarEvents = async (month, year) => {
+  const params = {};
+  if (month) params.month = month;
+  if (year) params.year = year;
+  const response = await api.get("/events/calendar", { params });
+  return response.data;
+};
+
