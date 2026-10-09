@@ -3,27 +3,28 @@
 
 ---
 
-### 🌐 1. Live Instant Access (Abhi Live Hai)
+### 🌐 1. Live Instant Access (Abhi Pure Internet Par Live Hai)
 
-Aapka ERP application abhi pure internet par live hai. Aap apne phone, dost ke laptop, ya kisi bhi device se directly access kar sakte hain:
+Aapka ERP application abhi Cloudflare Tunnel ke zariye pure world me live hai:
 
-- **Public Live URL**: `https://riet-erp-jaipur.loca.lt`
-- **One-Time Tunnel Password**: `47.15.68.246`
-  *(Jab aap link pehli baar open karenge, Localtunnel security screen aayegi. Usme ye password daalkar "Click to Submit" par click karein).*
+- 🚀 **Public Cloudflare Live URL**: **[https://constitution-detector-database-paint.trycloudflare.com](https://constitution-detector-database-paint.trycloudflare.com)**
+  *(Direct access — isme koi password ya warning screen nahi aayegi, phone me direct open hota hai!)*
 
-- **Local Wi-Fi Network URL (Agar same Wi-Fi connect ho)**:
-  - `http://10.210.215.222:5173` *(Isme koi password ki zaroorat nahi hoti direct open hota hai).*
+- 📱 **Local Wi-Fi Network URL (Same Wi-Fi Par)**:
+  - **`http://10.210.215.222:5173`**
 
 ---
 
-### 🔑 Demo Login Credentials (Role-wise)
+### 🔑 Demo Login Credentials
 
-| Role | Email | Password |
-|---|---|---|
-| **Admin** | `admin@college.com` | `admin123` |
-| **Faculty / Teacher** | `teacher@college.com` | `teacher123` |
-| **Student** | `student@college.com` | `student123` |
-| **Librarian** | `librarian@college.com` | `librarian123` |
+Aap in accounts se login karke check kar sakte hain:
+
+| Role | Email ID | Password | Access Features |
+|---|---|---|---|
+| 👑 **Administrator** | `admin@gmail.com` | `123456` | Full ERP Control, Bulk Import, Course Approvals |
+| 👨‍🏫 **Faculty / Teacher** | `dr.sharma@gmail.com` | `123456` | QR Code Projector, Proposals, Marks Entry |
+| 🎓 **Student** | `aman.verma@gmail.com` | `123456` | Digital ID, Camera QR Attendance, Library, Events |
+| 📚 **Librarian** | `librarian@gmail.com` | `123456` | Library Circulation, Issue/Return, Fine Tracking |
 
 ---
 
