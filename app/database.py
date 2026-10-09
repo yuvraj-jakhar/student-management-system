@@ -12,3 +12,4 @@ attendance_collection = db.attendance
 marks_collection = db.marks
 
 qr_collection = db.qr_codes
+notices_collection = db.notices

@@ -19,7 +19,7 @@ from app.models import AttendanceRecord
 router = APIRouter(
     prefix="/teacher",
     tags=["Teacher"],
-    dependencies=[Depends(RoleChecker(["teacher"]))]
+    dependencies=[Depends(RoleChecker(["teacher", "admin", "can_create_student"]))]
 )
 
 # =====================================
@@ -28,14 +28,20 @@ router = APIRouter(
 
 @router.get("/courses")
 async def view_courses(
-    current_user=Depends(RoleChecker(["teacher"]))
+    current_user=Depends(RoleChecker(["teacher", "admin", "can_create_student"]))
 ):
+    user_roles = current_user.get("role", [])
+    if isinstance(user_roles, str):
+        user_roles = [user_roles]
 
-    courses = await courses_collection.find(
-        {
-            "teacher_id": current_user["_id"]
-        }
-    ).to_list(100)
+    if "admin" in user_roles or "can_create_student" in user_roles:
+        courses = await courses_collection.find().to_list(100)
+    else:
+        courses = await courses_collection.find(
+            {
+                "teacher_id": current_user["_id"]
+            }
+        ).to_list(100)
 
     for course in courses:
         course["_id"] = str(course["_id"])

@@ -19,7 +19,7 @@ from app.database import (
 router = APIRouter(
     prefix="/student",
     tags=["Student"],
-    dependencies=[Depends(RoleChecker(["student"]))]
+    dependencies=[Depends(RoleChecker(["student", "admin"]))]
 )
 
 # =====================================
@@ -129,25 +129,30 @@ async def scan_qr(
             detail="QR Code Expired"
         )
 
-    # Duplicate Attendance Check
+    # Duplicate Attendance Check (Per QR session or today's session)
+    today_start = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
     already = await attendance_collection.find_one(
         {
             "student_id": current_user["_id"],
-            "course_id": qr["course_id"]
+            "$or": [
+                {"qr_id": qr["qr_id"]},
+                {"course_id": qr["course_id"], "date": {"$gte": today_start}}
+            ]
         }
     )
 
     if already:
         raise HTTPException(
             status_code=400,
-            detail="Attendance Already Marked"
+            detail="Attendance Already Marked for this Session"
         )
 
-    # Save Attendance
+    # Save Attendance with qr_id
     await attendance_collection.insert_one(
         {
             "student_id": current_user["_id"],
             "course_id": qr["course_id"],
+            "qr_id": qr["qr_id"],
             "status": "Present",
             "date": datetime.utcnow()
         }

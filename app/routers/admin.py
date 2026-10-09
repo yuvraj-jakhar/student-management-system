@@ -408,7 +408,7 @@ async def course_statistics():
 
         result.append(
             {
-                "course": course["course_name"],
+                "course": course.get("name") or course.get("course_name") or "Unnamed Course",
                 "students": total_students,
                 "teacher_id": course.get("teacher_id")
             }
