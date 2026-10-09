@@ -1,9 +1,17 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from app.routers import router as api_router
 from app.core.exceptions import register_exception_handlers
+from app.database import init_db_indexes
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await init_db_indexes()
+    yield
 
 
 # ==========================================
@@ -11,9 +19,10 @@ from app.core.exceptions import register_exception_handlers
 # ==========================================
 
 app = FastAPI(
-    title="Student Management System API",
-    description="Flow Driven Multi Role Student Management System",
-    version="1.0.0"
+    title="College Enterprise ERP API",
+    description="Comprehensive Multi-Role College Enterprise ERP System",
+    version="2.0.0",
+    lifespan=lifespan
 )
 
 
