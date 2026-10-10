@@ -108,27 +108,34 @@ export default function Login() {
               </span>
               <span className="text-[10px] font-mono text-slate-400">pwd: 123456</span>
             </div>
-            <div className="grid grid-cols-3 gap-1.5 text-xs">
+            <div className="grid grid-cols-4 gap-1 text-[11px]">
               <button
                 type="button"
                 onClick={() => handleQuickFill("admin@gmail.com", "123456")}
-                className="py-1.5 px-2 bg-white rounded-lg border border-slate-200 hover:border-indigo-500 hover:text-indigo-600 font-bold text-slate-700 transition text-center shadow-xs"
+                className="py-1.5 px-1 bg-white rounded-lg border border-slate-200 hover:border-indigo-500 hover:text-indigo-600 font-bold text-slate-700 transition text-center shadow-xs truncate"
               >
                 👑 Admin
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickFill("teacher@gmail.com", "123456")}
-                className="py-1.5 px-2 bg-white rounded-lg border border-slate-200 hover:border-purple-500 hover:text-purple-600 font-bold text-slate-700 transition text-center shadow-xs"
+                className="py-1.5 px-1 bg-white rounded-lg border border-slate-200 hover:border-purple-500 hover:text-purple-600 font-bold text-slate-700 transition text-center shadow-xs truncate"
               >
-                📚 Faculty
+                👨‍🏫 Faculty
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickFill("rahul@gmail.com", "123456")}
-                className="py-1.5 px-2 bg-white rounded-lg border border-slate-200 hover:border-emerald-500 hover:text-emerald-600 font-bold text-slate-700 transition text-center shadow-xs"
+                className="py-1.5 px-1 bg-white rounded-lg border border-slate-200 hover:border-emerald-500 hover:text-emerald-600 font-bold text-slate-700 transition text-center shadow-xs truncate"
               >
                 🎓 Student
+              </button>
+              <button
+                type="button"
+                onClick={() => handleQuickFill("librarian@gmail.com", "123456")}
+                className="py-1.5 px-1 bg-white rounded-lg border border-slate-200 hover:border-amber-500 hover:text-amber-600 font-bold text-slate-700 transition text-center shadow-xs truncate"
+              >
+                📚 Library
               </button>
             </div>
           </div>
