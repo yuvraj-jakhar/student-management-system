@@ -1,8 +1,14 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 from app.config import settings
 from datetime import datetime
+import certifi
 
-client = AsyncIOMotorClient(settings.MONGO_URL)
+# Connect with SSL CA bundle support for Cloud MongoDB Atlas
+client_kwargs = {}
+if "mongodb+srv://" in settings.MONGO_URL or "ssl=true" in settings.MONGO_URL.lower() or "tls=true" in settings.MONGO_URL.lower():
+    client_kwargs["tlsCAFile"] = certifi.where()
+
+client = AsyncIOMotorClient(settings.MONGO_URL, **client_kwargs)
 
 db = client.student_management
 
