@@ -5,7 +5,9 @@ __pycache__/
 .env
 .env.*
 logs/
-uploads/
+uploads/*
+!uploads/.gitkeep
+!uploads/*.png
 node_modules/
 dist/
 build/
