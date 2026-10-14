@@ -3,15 +3,19 @@
 
 ---
 
-### 🌐 1. Live Instant Access (Abhi Pure Internet Par Live Hai)
+### 🌟 Permanent 24/7 Production Cloud URLs (Laptop band hone par bhi active)
 
-Aapka ERP application abhi Cloudflare Tunnel ke zariye pure world me live hai:
+- 🚀 **Official Live Web Portal**: **[https://student-management-system-hshz.vercel.app](https://student-management-system-hshz.vercel.app)**
+- ⚡ **Official Live Backend API**: **[https://student-management-system-uhej.onrender.com](https://student-management-system-uhej.onrender.com)**
+- 🗄️ **Cloud Database**: MongoDB Atlas Dedicated Cluster (`student_management`)
+- 📱 **Mobile & Desktop**: 100% Responsive, kisi bhi device par direct open hota hai.
 
-- 🚀 **Public Cloudflare Live URL**: **[https://holder-visits-compiled-section.trycloudflare.com](https://holder-visits-compiled-section.trycloudflare.com)**
-  *(Direct access — isme koi password ya warning screen nahi aayegi, phone me direct open hota hai!)*
+---
 
-- 📱 **Local Wi-Fi Network URL (Same Wi-Fi Par)**:
-  - **`http://10.210.215.222:5173`**
+### 🌐 Temporary Local Wi-Fi & Cloudflare Access (Development)
+
+- 🚀 **Cloudflare Tunnel URL**: **[https://meanwhile-black-acceptable-citation.trycloudflare.com](https://meanwhile-black-acceptable-citation.trycloudflare.com)**
+- 📱 **Local Wi-Fi Network URL**: `http://10.210.215.222:5173`
 
 ---
 
