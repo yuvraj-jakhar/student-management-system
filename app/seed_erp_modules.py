@@ -143,6 +143,26 @@ async def seed_erp_modules():
     now = datetime.utcnow()
     sample_events = [
         {
+            "title": "Jalsa Mahotsav 2026 - गरबा (Garba & Dandiya Raas Night)",
+            "description": "Rajasthan Institute of Engineering & Technology (RIET), Jaipur in association with Sapiens Group of Institutes proudly presents 'Jalsa Mahotsav 2026 - गरबा'. Get ready for an electrifying festive evening featuring non-stop live music, traditional Garba & Dandiya Raas, celebrity guest night, exciting dance & best traditional attire competitions with prizes, fun carnival games, and delicious festive food stalls. Students & staff are encouraged to wear traditional festive attire (Chaniya Choli / Kurta Pyjama). Passes available on the ERP portal or contact +91-9257111215 / +91-9257111214.",
+            "category": "Cultural",
+            "venue": "RIET College Campus Ground, Ajmer Road, Bhankrota, Jaipur",
+            "start_date": datetime(2026, 10, 16, 18, 0, 0),
+            "end_date": datetime(2026, 10, 16, 23, 30, 0),
+            "registration_deadline": datetime(2026, 10, 16, 17, 0, 0),
+            "capacity": 1500,
+            "registered_count": 218,
+            "organizer": "Cultural Committee & Student Council, RIET Jaipur",
+            "status": "published",
+            "source": "instagram",
+            "source_badge": "Official @riet_official Announcement",
+            "source_url": "https://www.instagram.com/p/riet_jalsa_garba_2026/",
+            "banner_url": "/uploads/riet_jalsa_garba_2026.png",
+            "review_status": "approved",
+            "is_registration_open": True,
+            "created_at": now
+        },
+        {
             "title": "Smart India Hackathon (SIH 2026) Campus Qualifier",
             "description": "Annual 36-hour non-stop collegiate hackathon solving real-world challenges in AI, IoT, and Cloud Computing with cash prizes up to ₹1,00,000.",
             "category": "Hackathon",

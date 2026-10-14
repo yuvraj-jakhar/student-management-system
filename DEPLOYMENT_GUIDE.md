@@ -7,7 +7,7 @@
 
 Aapka ERP application abhi Cloudflare Tunnel ke zariye pure world me live hai:
 
-- 🚀 **Public Cloudflare Live URL**: **[https://taxation-mel-hourly-stockholm.trycloudflare.com](https://taxation-mel-hourly-stockholm.trycloudflare.com)**
+- 🚀 **Public Cloudflare Live URL**: **[https://holder-visits-compiled-section.trycloudflare.com](https://holder-visits-compiled-section.trycloudflare.com)**
   *(Direct access — isme koi password ya warning screen nahi aayegi, phone me direct open hota hai!)*
 
 - 📱 **Local Wi-Fi Network URL (Same Wi-Fi Par)**:
