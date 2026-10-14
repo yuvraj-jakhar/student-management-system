@@ -1,0 +1,12 @@
+{
+  "framework": "vite",
+  "installCommand": "cd sms-frontend && npm install",
+  "buildCommand": "cd sms-frontend && npm run build",
+  "outputDirectory": "sms-frontend/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

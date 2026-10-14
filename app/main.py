@@ -39,7 +39,7 @@ register_exception_handlers(app)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],      # Development ke liye
+    allow_origin_regex=r"^https?://.*",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -65,13 +65,23 @@ app.mount(
 
 
 # ==========================================
-# Home API
+# Home API & Browser Auto-Redirect
 # ==========================================
 
+from fastapi.responses import RedirectResponse
+from fastapi import Request
+
 @app.get("/")
-async def home():
+async def home(request: Request):
+    host = request.headers.get("host", "")
+    accept = request.headers.get("accept", "")
+    if "localhost" in host and "text/html" in accept:
+        return RedirectResponse(url="http://localhost:5173/")
     return {
-        "message": "Rajasthan Institute of Engineering & Technology (RIET Jaipur) ERP API"
+        "status": "online",
+        "system": "Rajasthan Institute of Engineering & Technology (RIET Jaipur) ERP API",
+        "version": "2.0.0",
+        "docs": "/docs"
     }
 
 

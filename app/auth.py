@@ -4,6 +4,11 @@ from bson import ObjectId
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
+import bcrypt
+import types
+if not hasattr(bcrypt, "__about__"):
+    bcrypt.__about__ = types.SimpleNamespace(__version__=getattr(bcrypt, "__version__", "4.0.1"))
+
 from passlib.context import CryptContext
 
 from app.config import settings

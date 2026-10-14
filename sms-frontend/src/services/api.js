@@ -1,6 +1,7 @@
 import axios from "axios";
 
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+const rawBase = import.meta.env.VITE_API_BASE_URL || "";
+export const API_BASE_URL = rawBase ? rawBase.replace(/\/+$/, "") : "";
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -27,7 +28,7 @@ api.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status === 401) {
       // Clear token if invalid or expired
-      if (!window.location.pathname.includes("/login")) {
+      if (!window.location.pathname.includes("/login") && window.location.pathname !== "/") {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         window.location.href = "/";
